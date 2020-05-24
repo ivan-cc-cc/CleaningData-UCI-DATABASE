@@ -1,6 +1,7 @@
 ## Loading Needed Package
 
 library(dplyr)
+library(data.table)
 
 ## Import the Training Data
 
@@ -50,7 +51,19 @@ extracted_data$Activity_Index =factor(extracted_data$Activity_Index)
 levels(extracted_data$Activity_Index) = c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS",
                                           "SITTING","STANDING","LAYING")
 
-## Second Table
+## The mean of each activity
 
+Each_Activity = extracted_data[,!2]
+Each_Activity = Each_Activity %>%
+        group_by(Activity_Index) %>%
+        summarise_all(list(MEAN = mean))
+
+## The mean of each subject
+
+Each_Subject = extracted_data[,!1]
+Each_Subject$Subject_Index = factor(Each_Subject$Subject_Index)
+Each_Subject = Each_Subject %>%
+        group_by(Subject_Index) %>%
+        summarise_all(list(MEAN = mean))
 
 
