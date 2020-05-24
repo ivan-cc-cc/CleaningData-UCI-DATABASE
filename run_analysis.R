@@ -74,5 +74,8 @@ Each_dd = Each_dd %>%
         group_by(Activity_Index,Subject_Index) %>%
         summarise_all(list(MEAN = mean))
 
+## Output 
+write.table(Each_dd,row.names = FALSE,file = "DD.txt")
+
 
 
