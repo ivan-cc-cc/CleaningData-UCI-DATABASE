@@ -66,4 +66,13 @@ Each_Subject = Each_Subject %>%
         group_by(Subject_Index) %>%
         summarise_all(list(MEAN = mean))
 
+## Combining these two tables
+
+Each_dd = extracted_data
+Each_dd$Subject_Index = factor(Each_dd$Subject_Index)
+Each_dd = Each_dd %>%
+        group_by(Activity_Index,Subject_Index) %>%
+        summarise_all(list(MEAN = mean))
+
+
 
