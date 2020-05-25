@@ -42,7 +42,7 @@ merged_data = rbind(training_data,testing_data)
 ## Extract the variable about mean and std:
 
 name = names(merged_data)
-index = grep("mean|std|Index",name)
+index = grep("[Mm]ean|std|Index",name)
 extracted_data = merged_data[index]
 
 ## Rename the activity index:
@@ -53,7 +53,8 @@ levels(extracted_data$Activity_Index) = c("WALKING","WALKING_UPSTAIRS","WALKING_
 
 ## The mean of each activity
 
-Each_Activity = extracted_data[,!2]
+extracted_data = as.data.table(extracted_data)
+Each_Activity = extracted_data[ ,!2]
 Each_Activity = Each_Activity %>%
         group_by(Activity_Index) %>%
         summarise_all(list(MEAN = mean))
@@ -75,7 +76,6 @@ Each_dd = Each_dd %>%
         summarise_all(list(MEAN = mean))
 
 ## Output 
-write.table(Each_dd,row.names = FALSE,file = "DD.txt")
-
-
+write.table(Each_dd,row.names = FALSE,file = "Required_data_Set.txt")
+read.table("Required_data_Set.txt",header = TRUE)
 
