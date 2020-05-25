@@ -69,13 +69,15 @@ Each_Subject = Each_Subject %>%
 
 ## Combining these two tables
 
-Each_dd = extracted_data
-Each_dd$Subject_Index = factor(Each_dd$Subject_Index)
-Each_dd = Each_dd %>%
+Each_ACT_SUB = extracted_data
+Each_ACT_SUB$Subject_Index = factor(Each_ACT_SUB$Subject_Index)
+Each_ACT_SUB = Each_ACT_SUB %>%
         group_by(Activity_Index,Subject_Index) %>%
         summarise_all(list(MEAN = mean))
 
 ## Output 
-write.table(Each_dd,row.names = FALSE,file = "Required_data_Set.txt")
+write.table(Each_Activity,row.names = FALSE,file = "Each_activity_data_Set.txt")
+write.table(Each_Subject,row.names = FALSE,file = "Each_subject_data_Set.txt")
+write.table(Each_ACT_SUB,row.names = FALSE,file = "Required_data_Set.txt")
 read.table("Required_data_Set.txt",header = TRUE)
 
